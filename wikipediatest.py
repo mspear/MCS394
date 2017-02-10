@@ -1,4 +1,3 @@
-__author__ = 'mspear'
 from selenium import webdriver
 
 import time
@@ -21,4 +20,4 @@ print(driver.page_source)
 driver.quit()
 
 
-//micahel my penis
+#micahel my penis
