@@ -1,6 +1,7 @@
 from selenium import webdriver
 import base64
 import time
+import graph
 
 
 def find_friends(driver):
@@ -20,11 +21,6 @@ def main():
     email.send_keys('mwspear@gmail.com')
     password = driver.find_element_by_id('pass')
     #still need to send password, tryin to figure out how to encrypt it properly
-    driver.quit()
-    exit()
-
-
-
     button = driver.find_element_by_id('loginbutton')
     button.click()
 
@@ -39,7 +35,17 @@ def main():
     # time.sleep(5)
 
     friends = find_friends(driver)
-    print(len(friends))
+    g = graph.Graph()
+    queue = []
+    nodeId = 1
+    for lv in friends:
+        friend_name = lv.find_element_by_tag_name('a')
+        g.add_node(nodeId, friend_name.get_attribute('href'))
+        friend_name.click()
+        time.sleep(10)
+
+    # mutual_friends = driver.find_element_by_class_name('_3c_')
+
     driver.quit()
 
 if __name__ == '__main__':
