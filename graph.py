@@ -13,7 +13,7 @@ class Graph:
         return False
 class Node:
     def __init__(self, id, name):
-        self.id = id
+        #self.id = id
         self.name = name
         self.neighbors = []
 
