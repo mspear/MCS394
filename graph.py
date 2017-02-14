@@ -2,18 +2,17 @@ class Graph:
     def __init__(self):
         self.g = []
 
-    def add_node(self, id, name):
-        self.g.append(Node(id, name))
+    def add_node(self, node):
+        self.g.append(node)
 
-    def __contains__(self, item):
-        for V in self.g:
-            if V.id == item:
-                return True
 
-        return False
 class Node:
+<<<<<<< HEAD
     def __init__(self, id, name):
         #self.id = id
+=======
+    def __init__(self, name):
+>>>>>>> 0ff4dba7dcb162737d1cf35e866185b9619e120e
         self.name = name
         self.neighbors = []
 

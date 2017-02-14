@@ -20,9 +20,12 @@ def main():
     email = driver.find_element_by_id('email')
     email.send_keys('mwspear@gmail.com')
     password = driver.find_element_by_id('pass')
-    #still need to send password, tryin to figure out how to encrypt it properly
-    button = driver.find_element_by_id('loginbutton')
-    button.click()
+    with open('/Users/mspear/password.txt', 'r') as f:
+        password.send_keys(f.read())
+
+    # button = driver.find_element_by_id('loginbutton')
+    # button.click()
+    print('made it')
 
     time.sleep(10)
 
@@ -30,23 +33,23 @@ def main():
     profile.click()
     time.sleep(10)
 
-    # link = driver.find_element_by_partial_link_text('Michael Spear')
-    # link.click()
-    # time.sleep(5)
 
     friends = find_friends(driver)
     g = graph.Graph()
     queue = []
-    nodeId = 1
     for lv in friends:
         friend_name = lv.find_element_by_tag_name('a')
-        g.add_node(nodeId, friend_name.get_attribute('href'))
-        friend_name.click()
-        time.sleep(10)
+        tmp = graph.Node(friend_name)
+        g.add_node(friend_name.get_attribute('href'))
+        queue.append(tmp)
+        time.sleep(5)
+
 
     # mutual_friends = driver.find_element_by_class_name('_3c_')
 
     driver.quit()
+
+    return g
 
 if __name__ == '__main__':
     main()
