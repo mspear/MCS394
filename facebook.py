@@ -1,7 +1,7 @@
 from selenium import webdriver
-import base64
 import time
 import graph
+import logging
 
 
 def find_friends(driver):
@@ -10,6 +10,13 @@ def find_friends(driver):
     time.sleep(5)
     friends = driver.find_elements_by_class_name('_698')
     return friends
+
+
+def process_friend(friend):
+    friend_name = friend.find_element_by_tag_name('a')
+    tmp = graph.Node(name=friend_name.text,link=friend_name.get_attribute('href'))
+    time.sleep(5)
+    return tmp
 
 
 def main():
@@ -23,33 +30,44 @@ def main():
     with open('/Users/mspear/password.txt', 'r') as f:
         password.send_keys(f.read())
 
-    # button = driver.find_element_by_id('loginbutton')
-    # button.click()
-    print('made it')
-
     time.sleep(10)
 
     profile = driver.find_element_by_class_name('_2s25')
     profile.click()
     time.sleep(10)
 
-
     friends = find_friends(driver)
     g = graph.Graph()
     queue = []
     for lv in friends:
-        friend_name = lv.find_element_by_tag_name('a')
-        tmp = graph.Node(friend_name)
-        g.add_node(friend_name.get_attribute('href'))
-        queue.append(tmp)
+        V = process_friend(lv)
+        queue.append(V)
+        logging.info(V.link)
+        g.add_node(V)
+
+    while queue:
         time.sleep(5)
-
-
-    # mutual_friends = driver.find_element_by_class_name('_3c_')
+        current = queue.pop()
+        logging.info(f"Redirecting to {current.link}")
+        driver.get(current.link)
+        friends = find_friends(driver)
+        for lv in friends:
+            V = process_friend(lv)
+            if V in g:
+                print('Found duplicate', V.link)
+                tmp = g.get(V)
+                tmp.add_neighbor(current)
+                current.add_neighbor(tmp)
+            else:
+                g.add_node(V)
 
     driver.quit()
 
     return g
+
+
+
+
 
 if __name__ == '__main__':
     main()
