@@ -11,6 +11,13 @@ class Graph:
     def __contains__(self, item):
         return item.link in self.g
 
+    def __len__(self):
+        return len(self.g)
+
+    def __iter__(self):
+        for lv in self.g:
+            yield lv
+
 
 class Node:
     def __init__(self, name, link):
@@ -33,14 +40,25 @@ class Node:
     def __ne__(self, other):
         return not self.__eq__(other)
 
+def cluster_coefficient(base):
+    f = base.neighbors
+    numerator = 0
+    for friend in f:
+        numerator += (len(set(friend.neighbors).intersection(set(f))) - 1)
+    return numerator
+
 
 def main():
-    g = Graph()
-    tmp = Node('Test', 'https://www.facebook.com/michaela.zachman?fref=pb&hc_location=friends_tab')
-    tmp.add_neighbor(Node('Hiiiiii', 'someshit'))
-    g.add_node(tmp)
-    tmp = Node('Other', link='https://www.facebook.com/michaela.zachman?fref=pb&hc_location=friends_tab')
-    print(g.get(tmp).neighbors)
+    import facebook
+    import pickle
+    import os
+    if os.path.isfile('/Users/mspear/graph'):
+        g = pickle.load('/Users/mspear/graph')
+    else:
+        g = facebook.main()
 
+    cc = [cluster_coefficient(g.get(lv))/len(g) for lv in g]
+    cc.sort()
+    print(*(lv for lv in cc[-1: -5]), sep='\n')
 if __name__ == '__main__':
     main()
