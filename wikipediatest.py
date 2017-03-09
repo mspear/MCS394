@@ -3,7 +3,7 @@ from selenium import webdriver
 import time
 
 
-driver = webdriver.Chrome('/Users/mspear/Downloads/chromedriver')
+driver = webdriver.Chrome('/Users/sam/Downloads/chromedriver')
 driver.get('http://www.wikipedia.org')
 time.sleep(5)
 
