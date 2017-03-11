@@ -22,6 +22,29 @@ import os
 #     shortLenSum = (bfsSum(friendGraph,root))
 
 
+    root = friendGraph.node('https://www.facebook.com/michael.spear.94')
+
+    sizeGraph = friendGraph.number_of_nodes()
+    print("number of nodes: " + sizeGraph)
+    sumEdges=friendGraph.number_of_edges()
+    print("number of edges: " + sumEdges )
+    graphDensity = (2 *sumEdges)//(sizeGraph * (sizeGraph-1))
+    print("density: " + graphDensity)
+    fwDict = FWalg(friendGraph)
+    averagePathLenth = lG(fwDict, sizeGraph)
+    print("average path length: " + averagePathLenth)
+
+
+def lG(dict1, num):
+    acc= 0
+    for i in dict1:
+        for j in dict1:
+            if i != j:
+                acc = dict1[i][j]
+    averageLength = (1/(num*(num-1))) * acc
+    return averageLength
+
+
 def FWalg(graph):
     dist = {}
     for i in graph:
@@ -78,7 +101,3 @@ def main():
     print(t3 - t2)
     # for key, value in FWalg(g).items():
     #     print(key, value)
-
-
-if __name__ == '__main__':
-    main()
