@@ -3,22 +3,24 @@ import facebook
 import pickle
 import networkx as nx
 import os
+import stack
+import queue
 #Sam Peterson is king author
 
-# def main():
-#     global friendGraph
-#     friendGraph = pickle.load("FILE")
-#
-#
-#     root = friendGraph.node('https://www.facebook.com/michael.spear.94')
-#
-#     sizeGraph = friendGraph.number_of_nodes()
-#     print("number of nodes " + sizeGraph)
-#     sumEdges=friendGraph.number_of_edges()
-#     print("number of edges " + sumEdges )
-#     graphDensity = (2 *sumEdges)//(sizeGraph * (sizeGraph-1))
+ def main():
+     global friendGraph
+     friendGraph = pickle.load("FILE")
+
+
+   #  root = friendGraph.node('https://www.facebook.com/michael.spear.94')
+
+  #   sizeGraph = friendGraph.number_of_nodes()
+  #   print("number of nodes " + sizeGraph)
+ #    sumEdges=friendGraph.number_of_edges()
+ #    print("number of edges " + sumEdges )
+ #    graphDensity = (2 *sumEdges)//(sizeGraph * (sizeGraph-1))
 #     print("density " + graphDensity)
-#
+
 #     shortLenSum = (bfsSum(friendGraph,root))
 
 
@@ -63,8 +65,17 @@ def FWalg(graph):
 
 def betweenCentr(vertex,graph):
     CBV = 0
-    for i in graph:
-        #S = empty
+    for s in graph:
+        S = stack.Stack()
+       # return nx.betweeness_centrality(graph)
+        #P[w] = empty list, w is a member of V
+        A=dict([(j,0) for j in graph])
+        A[s] = 1
+        d = [-1 for i in len(graph)]
+
+
+
+
 
 
 #def bfsSum(graph,r):
