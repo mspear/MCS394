@@ -13,16 +13,26 @@ def main():
     root = friendGraph.node('https://www.facebook.com/michael.spear.94')
 
     sizeGraph = friendGraph.number_of_nodes()
-    print("number of nodes " + sizeGraph)
+    print("number of nodes: " + sizeGraph)
     sumEdges=friendGraph.number_of_edges()
-    print("number of edges " + sumEdges )
+    print("number of edges: " + sumEdges )
     graphDensity = (2 *sumEdges)//(sizeGraph * (sizeGraph-1))
-    print("density " + graphDensity)
+    print("density: " + graphDensity)
+    fwDict = FWalg(friendGraph)
+    averagePathLenth = lG(fwDict, sizeGraph)
+    print("average path length: " + averagePathLenth)
 
-    shortLenSum = (bfsSum(friendGraph,root))
 
+def lG(dict1, num):
+    acc= 0
+    for i in dict1:
+        for j in dict1:
+            if i != j:
+                acc = dict1[i][j]
+    averageLength = (1/(num*(num-1))) * acc
+    return averageLength
 
-def FWalg(graph,num):
+def FWalg(graph):
     dist = {}
     for i in graph:
         dist[i] = dict([(j, float('inf')) for j in graph if i != j])
