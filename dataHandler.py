@@ -23,12 +23,21 @@ def main():
 
 
 def FWalg(graph,num):
-    dist = [[-1 for x in range(num)] for y in range(num)]
-    for i in num:
-        dist[i][i]= 0
-    for i in graph.edges():
-        dist
+    dist = {}
+    for i in graph:
+        dist[i] = dict([(j, float('inf')) for j in graph if i != j])
+    for i in dist:
+        dist[i][i] = 0
+    for i in dist:
+        for j in graph[i]:
+            dist[i][j] = 1
+    for k in graph:
+        for i in graph:
+            for j in graph:
+                if dist[i][j] > dist[i][k] + dist[k][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
 
+    return dist
 
 
 #def bfsSum(graph,r):
