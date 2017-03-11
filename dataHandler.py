@@ -5,24 +5,24 @@ import networkx as nx
 import os
 #Sam Peterson is king author
 
-def main():
-    global friendGraph
-    friendGraph = pickle.load("FILE")
+# def main():
+#     global friendGraph
+#     friendGraph = pickle.load("FILE")
+#
+#
+#     root = friendGraph.node('https://www.facebook.com/michael.spear.94')
+#
+#     sizeGraph = friendGraph.number_of_nodes()
+#     print("number of nodes " + sizeGraph)
+#     sumEdges=friendGraph.number_of_edges()
+#     print("number of edges " + sumEdges )
+#     graphDensity = (2 *sumEdges)//(sizeGraph * (sizeGraph-1))
+#     print("density " + graphDensity)
+#
+#     shortLenSum = (bfsSum(friendGraph,root))
 
 
-    root = friendGraph.node('https://www.facebook.com/michael.spear.94')
-
-    sizeGraph = friendGraph.number_of_nodes()
-    print("number of nodes " + sizeGraph)
-    sumEdges=friendGraph.number_of_edges()
-    print("number of edges " + sumEdges )
-    graphDensity = (2 *sumEdges)//(sizeGraph * (sizeGraph-1))
-    print("density " + graphDensity)
-
-    shortLenSum = (bfsSum(friendGraph,root))
-
-
-def FWalg(graph,num):
+def FWalg(graph):
     dist = {}
     for i in graph:
         dist[i] = dict([(j, float('inf')) for j in graph if i != j])
@@ -45,7 +45,7 @@ def FWalg(graph,num):
   #  newDict = {}
 
 
-    componentCount = 0
+    #componentCount = 0
     #global dList
     #global k
     #k=0
@@ -64,3 +64,21 @@ def FWalg(graph,num):
   #  neighbors = node.neighbors
    # for vert in neighbors:
 
+def main():
+    import pickle
+    import datetime
+    with open('/Users/mspear/graph', 'rb') as f:
+        g = pickle.load(f)
+    t = datetime.datetime.now()
+    FWalg(g)
+    t2 = datetime.datetime.now()
+    nx.average_shortest_path_length(g)
+    t3 = datetime.datetime.now()
+    print(t2 - t)
+    print(t3 - t2)
+    # for key, value in FWalg(g).items():
+    #     print(key, value)
+
+
+if __name__ == '__main__':
+    main()

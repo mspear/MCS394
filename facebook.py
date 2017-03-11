@@ -56,12 +56,13 @@ def make_graph():
         friends = find_friends(driver)
         for lv in friends:
             V = process_friend(lv)
-            if V in g:
-                g.add_edge(current, V)
-            else:
-                # g.add_node(V)
-                g.add_edges_from([('https://www.facebook.com/michael.spear.94', V), (current, V)])
-
+            g.add_edge(current, V)
+            # if V in g:
+            #     g.add_edge(current, V)
+            # else:
+            #     # g.add_node(V)
+            #     #g.add_edges_from([('https://www.facebook.com/michael.spear.94', V), (current, V)])
+            #     g.add_edge(current, V)
     driver.quit()
 
     return g
@@ -69,12 +70,14 @@ def make_graph():
 if __name__ == '__main__':
     import os
     import pickle
-    if os.path.isfile('/Users/mspear/graph'):
-        with open('/Users/mspear/graph', 'rb') as f:
-            g = pickle.load(f)
-    else:
-        g = make_graph()
-        with open('/Users/mspear/graph', 'wb') as f:
-            pickle.dump(g, f)
+    # if os.path.isfile('/Users/mspear/graph'):
+    #     with open('/Users/mspear/graph', 'rb') as f:
+    #         g = pickle.load(f)
+    # else:
+    #     g = make_graph()
+    #     with open('/Users/mspear/graph', 'wb') as f:
+    #         pickle.dump(g, f)
 
-    print(nx.clustering(g))
+    with open('/Users/mspear/graph2', 'wb') as f:
+        g = make_graph()
+        pickle.dump(g, f)
