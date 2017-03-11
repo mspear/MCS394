@@ -59,8 +59,12 @@ def FWalg(graph):
             for j in graph:
                 if dist[i][j] > dist[i][k] + dist[k][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
-
     return dist
+
+def betweenCentr(vertex,graph):
+    CBV = 0
+    for i in graph:
+        #S = empty
 
 
 #def bfsSum(graph,r):
